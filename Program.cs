@@ -3,44 +3,58 @@
     static void Main(string[] args)
     {
 
-        float x = 0.17f;
+        Console.WriteLine("Enter first number");
 
         if (!Int32.TryParse(Console.ReadLine(), out var a))
         {
             Console.WriteLine("Not a number!");
-            return;
-        }
-        if (!Int32.TryParse(Console.ReadLine(), out var b))
-        {
-            Console.WriteLine("Not a number!");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
             return;
         }
 
-        var s = Console.ReadLine();
-        var boolVar = false;
-        if (s.Length == 0 || s.Length > 1 && !boolVar)
+        Console.WriteLine("Enter second number");
+
+        if (!Int32.TryParse(Console.ReadLine(), out var b))
         {
-            Console.WriteLine("Wrong sign");
+            Console.WriteLine("Not a number!");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
             return;
         }
+
+        Console.WriteLine("Enter operator: &, | or ^");
+        var s = Console.ReadLine();
+
+        if (s.Length == 0 || s.Length > 1)
+        {
+            Console.WriteLine("Wrong sign");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+            return;
+        }
+
         switch (s[0])
         {
-            case '+':
-                Console.WriteLine("Result of {0} + {1} = {2}", a, b, a + b);
+            case '&':
+                var res = a & b;
+                Console.WriteLine("Result of {0} & {1} = {2}(decimal), {3}(binary), {4}(hex)", a, b, Convert.ToString(res, 10), Convert.ToString(res, 2), Convert.ToString(res, 16));
                 break;
-            case '-':
-                Console.WriteLine("Result of {0} - {1} = {2}", a, b, a - b);
+            case '|':
+                res = a | b;
+                Console.WriteLine("Result of {0} | {1} = {2}(decimal), {3}(binary), {4}(hex)", a, b, Convert.ToString(res, 10), Convert.ToString(res, 2), Convert.ToString(res, 16));
                 break;
-            case '*':
-                Console.WriteLine("Result of {0} * {1} = {2}", a, b, a * b);
-                break;
-            case '/':
-                Console.WriteLine("Result of {0} / {1} = {2}", a, b, a / b);
-                break;
-            case '%':
-                Console.WriteLine("Result of {0} % {1} = {2}", a, b, a % b);
+            case '^':
+                res = a ^ b;
+                Console.WriteLine("Result of {0} ^ {1} = {2}(decimal), {3}(binary), {4}(hex)", a, b, Convert.ToString(res, 10), Convert.ToString(res, 2), Convert.ToString(res, 16));
                 break;
             default:
                 Console.WriteLine("wrong sign");
                 break;
         }
+
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+
+    }
+}
