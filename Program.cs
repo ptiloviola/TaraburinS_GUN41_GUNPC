@@ -24,20 +24,20 @@
         }
 
         Console.WriteLine("Enter operator: &, | or ^");
-        var s = Console.ReadLine();
+        var oper = Console.ReadLine();
 
-        if (s.Length == 0 || s.Length > 1)
+        if (oper.Length == 0 || oper.Length > 1)
         {
             Console.WriteLine("Wrong sign");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
             return;
         }
-
-        switch (s[0])
+        int res;
+        switch (oper[0])
         {
             case '&':
-                var res = a & b;
+                res = a & b;
                 Console.WriteLine("Result of {0} & {1} = {2}(decimal), {3}(binary), {4}(hex)", a, b, Convert.ToString(res, 10), Convert.ToString(res, 2), Convert.ToString(res, 16));
                 break;
             case '|':
