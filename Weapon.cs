@@ -14,8 +14,9 @@ public class Weapon
     public Weapon(string name)
 	{
 		Name = name;
+		Durability = 1f;
 
-	}
+    }
 	public Weapon(string name, int minDamage, int maxDamage) : this(name)
 	{
 		SetDamageParams(minDamage, maxDamage);

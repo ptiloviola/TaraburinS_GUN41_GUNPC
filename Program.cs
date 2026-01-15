@@ -49,7 +49,7 @@ class Program
         int maxDamage = ReadIntValue();
 
         var customWeapon = new Weapon(weaponName, minDamage, maxDamage);
-        Console.WriteLine("Weapon name = {0}. MinDamage = {1}. MaxDamage = {2}. Average damage = {3}", customWeapon.Name, customWeapon.MinDamage, customWeapon.MaxDamage, customWeapon.GetDamage());
+        Console.WriteLine("Weapon name = {0}. MinDamage = {1}. MaxDamage = {2}. Average damage = {3}. Durability = {4}", customWeapon.Name, customWeapon.MinDamage, customWeapon.MaxDamage, customWeapon.GetDamage(), customWeapon.Durability);
 
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey();
