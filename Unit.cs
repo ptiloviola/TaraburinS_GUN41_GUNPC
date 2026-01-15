@@ -3,44 +3,45 @@
     public class Unit
     {
 
-        private float _health;
-        private float _armour;
+        private float _health = 100f;
+        private float _armor;
+        private int _damage;
 
         public string Name { get; }
 
         public float Health => _health;
 
+        public int Damage { get; }
+
+        public float Armor { get; }
+
         public Unit() : this("Unknown Unit")
         {
-
         }
 
         public Unit(string name)
         {
             Name = name;
+            Armor = 0.6f;
+            Damage = 5;
         }
 
         public float GetRealHealth()
         {
-            return Health * (1f + Armour);
+            return Health * (1f + Armor);
         }
-
-        public float Armour
+        public bool SetDamage(float value)
         {
-            get
+            _health -= value * Armor;
+            Console.WriteLine($"Unit {Name} got {value * Armor} damage, current health: {_health}");
+            if (_health <= 0f)
             {
-                return (float)Math.Round(_armour, 2);
-            }
-            set
+                Console.WriteLine($"Unit {Name} is dead.");
+                return true;
+            } else
             {
-                if (value >= 0 || value <= 1)
-                {
-                    _armour = value;
-                }
-                else
-                {
-                    Console.WriteLine("Error armour value");
-                }
+                Console.WriteLine($"Unit {Name} is still alive.");
+                return false;
             }
         }
     }
