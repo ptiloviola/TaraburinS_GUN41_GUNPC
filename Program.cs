@@ -1,4 +1,5 @@
 ﻿
+using Game;
 
 class Program
 {
@@ -6,50 +7,52 @@ class Program
     {
 
         var unit = new Unit("Vasya");
-        Console.WriteLine(unit.Name);
-        Console.WriteLine(unit.Armor);
-        Console.WriteLine(unit.Damage);
-        Console.WriteLine(unit.Health);
-        Console.WriteLine(unit.GetRealHealth());
-        Console.WriteLine(unit.SetDamage(550));
+        //Console.WriteLine(unit.Name);
+        //Console.WriteLine(unit.Armor);
+        //Console.WriteLine(unit.Damage.Max);
+        //Console.WriteLine(unit.Health);
+        //Console.WriteLine(unit.GetRealHealth());
+        //Console.WriteLine(unit.SetDamage(15));
+
+        //Console.WriteLine("-------------------------");
+
+        var weapon = new Weapon("Sword", -2, 5);
+        //Console.WriteLine(weapon.Name);
+        //Console.WriteLine(weapon.Damage.Min);
+        //Console.WriteLine(weapon.Damage.Max);
+        //Console.WriteLine(weapon.GetDamage());
+
+        //Console.WriteLine("-------------------------");
+
+
+        var interval = new Interval(-4, -3);
+        Console.WriteLine("Min = {0}", interval.Min);
+        Console.WriteLine("Max = {0}", interval.Max);
+        Console.WriteLine("get = {0}", interval.Get());
 
         Console.WriteLine("-------------------------");
 
-        var weapon = new Weapon("Sword", 0, 1);
-        Console.WriteLine(weapon.Name);
-        Console.WriteLine(weapon.MinDamage);
-        Console.WriteLine(weapon.MaxDamage);
-        Console.WriteLine(weapon.GetDamage());
+        var room = new Room(unit, weapon);
+
+        Console.WriteLine("Room has unit: {0} with health {1}", room.Unit.Name, room.Unit.Health);
+        Console.WriteLine("Room has weapon: {0} with damage range {1}-{2}", room.Weapon.Name, room.Weapon.Damage.Min, room.Weapon.Damage.Max);
 
         Console.WriteLine("-------------------------");
 
-        Console.WriteLine("Enter unit name");
-        var unitName = Console.ReadLine();
+        //var unit1 = new Unit("Petya", 0, -8);
+        //var weapon1 = new Weapon("Axe", 3, 15);
+        //var room1 = new Room(unit1, weapon1);
+        //var room2 = new Room(new Unit("Mizu", 5, 8), new Weapon("Wakizashi", 15, 6));
 
-        Console.WriteLine("Enter damage value");
+        //Room[] rooms = new Room[] { room, new Room(new Unit("Brrrr"), new Weapon("Ughrrrrrr")), room1, room2, new Room(new Unit("Satori Hanzo", 6, 6), new Weapon("Katana", 9, 23)) };
 
-        int damageValue = ReadIntValue();
+        //var dungeon = new Dungeon(rooms);
+        //dungeon.ShowRooms();
 
-        var customUnit = new Unit(unitName);
+        var dungeon = new Dungeon();
+        dungeon.ShowRooms();
 
-        Console.WriteLine("Unit name = {0}. Armor = {1}. Damage = {2}. Health = {3}. Real health = {4}. Dead = {5}", customUnit.Name, customUnit.Armor, customUnit.Damage, customUnit.Health, customUnit.GetRealHealth(), customUnit.SetDamage(damageValue));
 
-        Console.WriteLine("-------------------------");
-
-        Console.WriteLine("Enter weapon name");
-
-        var weaponName = Console.ReadLine();
-
-        Console.WriteLine("Enter min damage");
-
-        int minDamage = ReadIntValue();
-
-        Console.WriteLine("Enter max damage");
-
-        int maxDamage = ReadIntValue();
-
-        var customWeapon = new Weapon(weaponName, minDamage, maxDamage);
-        Console.WriteLine("Weapon name = {0}. MinDamage = {1}. MaxDamage = {2}. Average damage = {3}. Durability = {4}", customWeapon.Name, customWeapon.MinDamage, customWeapon.MaxDamage, customWeapon.GetDamage(), customWeapon.Durability);
 
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey();
