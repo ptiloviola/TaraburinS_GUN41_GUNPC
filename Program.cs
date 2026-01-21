@@ -1,72 +1,189 @@
 ﻿
+using System.Buffers;
 using Game;
 
 class Program
 {
+    private class ListTask
+    {
+        private readonly List<int> _listOfInt;
+
+        public void TaskLoop()
+        {
+            Console.WriteLine("TaskLoop in ListTask");
+            foreach (var item in _listOfInt)
+            {
+                Console.WriteLine(item);
+            }
+            string enter = "";
+            while (enter != "-exit")
+            {
+                Console.WriteLine("Enter a number. For exit enter -exit");
+                enter = Console.ReadLine();
+                if (enter == "-exit")
+                {
+                    Console.WriteLine("exit form task 1");
+                    break;
+                }
+                if (int.TryParse(enter, out int result))
+                {
+                    _listOfInt.Add(result);
+                }
+                else
+                {
+                    Console.WriteLine("Not a number! Try again!");
+                }
+                foreach (var item in _listOfInt)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+        }
+
+        public ListTask(int[] arrInt)
+        {
+            _listOfInt = new List<int>(arrInt);
+        }
+    }
+
+    private class DictionaryTask
+    {
+        private readonly Dictionary<string, float> _dictionary;
+
+        public void TaskLoop()
+        {
+            Console.WriteLine("TaskLoop in DictionaryTask");
+            string enter = "";
+            while (enter != "-exit")
+            {
+                Console.WriteLine("Enter Name. For find Name enter -find. For exit enter -exit. For print all items enter -show");
+                enter = Console.ReadLine();
+                if (enter == "-exit")
+                {
+                    Console.WriteLine("exit form task 2");
+                    break;
+                }
+                else if (enter == "-find")
+                {
+                    Console.WriteLine("Enter name for searching");
+                    string name = Console.ReadLine();
+                    if (_dictionary.TryGetValue(name, out float result))
+                    {
+                        Console.WriteLine("{0} has {1} average rate", name, result);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Name not found");
+                    }
+                }
+                else if (enter == "-show")
+                {
+                    foreach (var item in _dictionary)
+                    {
+                        Console.WriteLine("{0} : {1}", item.Key, item.Value);
+                    }
+                }
+                else
+                {
+                    //Console.WriteLine("Enter name to add in database");
+                    //string name = Console.ReadLine();
+                    if (_dictionary.ContainsKey(enter))
+                    {
+                        Console.WriteLine("Name {0} already exists in database. Enter number for overwriting rate. Use ',' as decimal separator (e.g. 1,5). Enter -exit to exit", enter);
+                        string enterExists = Console.ReadLine();
+                        if (enterExists == "-exit")
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            EnterRate(enter, enterExists, _dictionary);
+                            continue;
+                        }
+
+                    }
+                    Console.WriteLine("Enter avg. rate for {0} to add in database. Use ',' as decimal separator (e.g. 1,5)", enter);
+                    EnterRate(enter, Console.ReadLine(), _dictionary);
+                }
+
+            }
+        }
+
+        public DictionaryTask(Dictionary<string, float> dictionary)
+        {
+            _dictionary = dictionary;
+        }
+    }
+
+
+    private class LinkedListTask
+    {
+        private class Node
+        {
+
+        }
+
+        public void TaskLoop()
+        {
+            Console.WriteLine("TaskLoop in LinkedListTask");
+        }
+
+
+    }
+
+    public static void EnterRate(string name, string rate, Dictionary<string, float> dictionary)
+    {
+        
+        if (float.TryParse(rate, out float result))
+        {
+            if (result > 1 && result <= 5)
+            {
+                dictionary[name] = result;
+                Console.WriteLine("{0} with {1} avg. rate added in database", name, result);
+            }
+            else
+            {
+                Console.WriteLine("Incorrect rate (must be in 2..5)");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Incorrect input for avg. rate");
+        }
+    }
+
+
     static void Main(string[] args)
     {
-
-        var unit = new Unit("Vasya");
-        //Console.WriteLine(unit.Name);
-        //Console.WriteLine(unit.Armor);
-        //Console.WriteLine(unit.Damage.Max);
-        //Console.WriteLine(unit.Health);
-        //Console.WriteLine(unit.GetRealHealth());
-        //Console.WriteLine(unit.SetDamage(15));
-
-        //Console.WriteLine("-------------------------");
-
-        var weapon = new Weapon("Sword", -2, 5);
-        //Console.WriteLine(weapon.Name);
-        //Console.WriteLine(weapon.Damage.Min);
-        //Console.WriteLine(weapon.Damage.Max);
-        //Console.WriteLine(weapon.GetDamage());
-
-        //Console.WriteLine("-------------------------");
-
-
-        var interval = new Interval(-4, -3);
-        Console.WriteLine("Min = {0}", interval.Min);
-        Console.WriteLine("Max = {0}", interval.Max);
-        Console.WriteLine("get = {0}", interval.Get());
-
-        Console.WriteLine("-------------------------");
-
-        var room = new Room(unit, weapon);
-
-        Console.WriteLine("Room has unit: {0} with health {1}", room.Unit.Name, room.Unit.Health);
-        Console.WriteLine("Room has weapon: {0} with damage range {1}-{2}", room.Weapon.Name, room.Weapon.Damage.Min, room.Weapon.Damage.Max);
-
-        Console.WriteLine("-------------------------");
-
-        //var unit1 = new Unit("Petya", 0, -8);
-        //var weapon1 = new Weapon("Axe", 3, 15);
-        //var room1 = new Room(unit1, weapon1);
-        //var room2 = new Room(new Unit("Mizu", 5, 8), new Weapon("Wakizashi", 15, 6));
-
-        //Room[] rooms = new Room[] { room, new Room(new Unit("Brrrr"), new Weapon("Ughrrrrrr")), room1, room2, new Room(new Unit("Satori Hanzo", 6, 6), new Weapon("Katana", 9, 23)) };
-
-        //var dungeon = new Dungeon(rooms);
-        //dungeon.ShowRooms();
-
-        var dungeon = new Dungeon();
-        dungeon.ShowRooms();
-
-
+        
+        string enter = "";
+        while (enter != "-exit")
+        {
+            Console.WriteLine("choose task. enter 1, 2 or 3. For exit enter -exit");
+            enter = Console.ReadLine();
+            int taskNumber = int.Parse(enter);
+            if (taskNumber == 1)
+            {
+                int[] arrInt = [1, 2, 3];
+                var listTask = new ListTask(arrInt);
+                listTask.TaskLoop();
+            }
+            else if (taskNumber == 2)
+            {
+                var initDict = new Dictionary<string, float>() { { "Paul", 3.1f }, { "Daria", 4.2f } };
+                var dictionaryTask = new DictionaryTask(initDict);
+                dictionaryTask.TaskLoop();
+            }
+            else if (taskNumber == 3)
+            {
+                var linkedListTask = new LinkedListTask();
+                linkedListTask.TaskLoop();
+            }
+        }
+        
 
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey();
-    }
-
-    static int ReadIntValue()
-    {
-        if (!Int32.TryParse(Console.ReadLine(), out var value))
-        {
-            Console.WriteLine("Not a number!");
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
-        }
-        return value;
     }
 
 
