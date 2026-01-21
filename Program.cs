@@ -1,12 +1,9 @@
 ﻿
-using System.Buffers;
-using Game;
-
 class Program
 {
     private class ListTask
     {
-        private readonly List<int> _listOfInt;
+        private readonly List<int> _listOfInt = new List<int>();
 
         public void TaskLoop()
         {
@@ -18,12 +15,25 @@ class Program
             string enter = "";
             while (enter != "-exit")
             {
-                Console.WriteLine("Enter a number. For exit enter -exit");
+                Console.WriteLine("Enter a number. For exit enter -exit. To add to the middle of the list enter -mid");
                 enter = Console.ReadLine();
                 if (enter == "-exit")
                 {
                     Console.WriteLine("exit form task 1");
                     break;
+                }
+                else if (enter == "-mid")
+                {
+                    Console.WriteLine("Enter a number");
+                    if (int.TryParse(Console.ReadLine(), out int res))
+                    {
+                        _listOfInt.Insert(_listOfInt.Count / 2, res);
+                        Console.WriteLine("{0} added to the middle of the list");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not a number! Try again!");
+                    }
                 }
                 if (int.TryParse(enter, out int result))
                 {
@@ -33,11 +43,17 @@ class Program
                 {
                     Console.WriteLine("Not a number! Try again!");
                 }
+                Console.WriteLine("Current List:");
                 foreach (var item in _listOfInt)
                 {
                     Console.WriteLine(item);
                 }
             }
+        }
+
+        public ListTask()
+        {
+            
         }
 
         public ListTask(int[] arrInt)
@@ -56,7 +72,7 @@ class Program
             string enter = "";
             while (enter != "-exit")
             {
-                Console.WriteLine("Enter Name. For find Name enter -find. For exit enter -exit. For print all items enter -show");
+                Console.WriteLine("Enter Name. For find Name enter -find. For exit enter -exit. To print all items enter -show");
                 enter = Console.ReadLine();
                 if (enter == "-exit")
                 {
@@ -100,13 +116,18 @@ class Program
                             EnterRate(enter, enterExists, _dictionary);
                             continue;
                         }
-
                     }
                     Console.WriteLine("Enter avg. rate for {0} to add in database. Use ',' as decimal separator (e.g. 1,5)", enter);
                     EnterRate(enter, Console.ReadLine(), _dictionary);
                 }
 
             }
+        }
+
+
+        public DictionaryTask()
+        {
+            _dictionary = new Dictionary<string, float>();
         }
 
         public DictionaryTask(Dictionary<string, float> dictionary)
@@ -164,20 +185,26 @@ class Program
             int taskNumber = int.Parse(enter);
             if (taskNumber == 1)
             {
-                int[] arrInt = [1, 2, 3];
-                var listTask = new ListTask(arrInt);
+                //int[] arrInt = [1, 2, 3];
+                //var listTask = new ListTask(arrInt);
+                var listTask = new ListTask();
                 listTask.TaskLoop();
             }
             else if (taskNumber == 2)
             {
-                var initDict = new Dictionary<string, float>() { { "Paul", 3.1f }, { "Daria", 4.2f } };
-                var dictionaryTask = new DictionaryTask(initDict);
+                //var initDict = new Dictionary<string, float>() { { "Paul", 3.1f }, { "Daria", 4.2f } };
+                //var dictionaryTask = new DictionaryTask(initDict);
+                var dictionaryTask = new DictionaryTask();
                 dictionaryTask.TaskLoop();
             }
             else if (taskNumber == 3)
             {
                 var linkedListTask = new LinkedListTask();
                 linkedListTask.TaskLoop();
+            }
+            else
+            {
+                Console.WriteLine("Incorrect enter. Try again!");
             }
         }
         
