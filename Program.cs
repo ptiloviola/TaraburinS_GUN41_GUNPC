@@ -222,7 +222,7 @@ class Program
         string enter = "";
         while (enter != "-e")
         {
-            Console.WriteLine("choose task. enter 1, 2 or 3");
+            Console.WriteLine("choose task. enter 1, 2 or 3. enter 0 to exit");
             enter = Console.ReadLine();
             if(int.TryParse(enter, out int taskNumber))
             {
@@ -242,6 +242,10 @@ class Program
                     case 3:
                         var linkedListTask = new LinkedListTask();
                         linkedListTask.TaskLoop();
+                        break;
+                    case 0:
+                        Console.WriteLine("Exiting program...");
+                        enter = "-e";
                         break;
                     default:
                         Console.WriteLine("Incorrect enter. Try again!");
