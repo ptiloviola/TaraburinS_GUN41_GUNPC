@@ -1,4 +1,6 @@
 ﻿
+using DoublyLinkedList;
+
 class Program
 {
     private class ListTask
@@ -13,11 +15,11 @@ class Program
                 Console.WriteLine(item);
             }
             string enter = "";
-            while (enter != "-exit")
+            while (enter != "-e")
             {
-                Console.WriteLine("Enter a number. For exit enter -exit. To add to the middle of the list enter -mid");
+                Console.WriteLine("Enter a number. For exit enter -e. To add to the middle of the list enter -mid");
                 enter = Console.ReadLine();
-                if (enter == "-exit")
+                if (enter == "-e")
                 {
                     Console.WriteLine("exit form task 1");
                     break;
@@ -70,16 +72,16 @@ class Program
         {
             Console.WriteLine("TaskLoop in DictionaryTask");
             string enter = "";
-            while (enter != "-exit")
+            while (enter != "-e")
             {
-                Console.WriteLine("Enter Name. For find Name enter -find. For exit enter -exit. To print all items enter -show");
+                Console.WriteLine("Enter Name. For find Name enter -f. For exit enter -e. To print all items enter -p");
                 enter = Console.ReadLine();
-                if (enter == "-exit")
+                if (enter == "-e")
                 {
                     Console.WriteLine("exit form task 2");
                     break;
                 }
-                else if (enter == "-find")
+                else if (enter == "-f")
                 {
                     Console.WriteLine("Enter name for searching");
                     string name = Console.ReadLine();
@@ -92,7 +94,7 @@ class Program
                         Console.WriteLine("Name not found");
                     }
                 }
-                else if (enter == "-show")
+                else if (enter == "-p")
                 {
                     foreach (var item in _dictionary)
                     {
@@ -105,9 +107,9 @@ class Program
                     //string name = Console.ReadLine();
                     if (_dictionary.ContainsKey(enter))
                     {
-                        Console.WriteLine("Name {0} already exists in database. Enter number for overwriting rate. Use ',' as decimal separator (e.g. 1,5). Enter -exit to exit", enter);
+                        Console.WriteLine("Name {0} already exists in database. Enter number for overwriting rate. Use ',' as decimal separator (e.g. 1,5). Enter -e to exit", enter);
                         string enterExists = Console.ReadLine();
-                        if (enterExists == "-exit")
+                        if (enterExists == "-e")
                         {
                             continue;
                         }
@@ -139,17 +141,57 @@ class Program
 
     private class LinkedListTask
     {
-        private class Node
-        {
-
-        }
-
+        private readonly DoublyLinkedList<int> _doublyLinkedList;
+        
         public void TaskLoop()
         {
             Console.WriteLine("TaskLoop in LinkedListTask");
+            string enter = "";
+            while (enter != "-e")
+            {
+                Console.WriteLine("Enter a number(int) to add it at first. To add a number at last use -l prefix. To print all items forward enter -pf, to print backward enter -pb. For exit enter -e. ");
+                enter = Console.ReadLine();
+                if (enter == "-e")
+                {
+                    Console.WriteLine("exit form task 3");
+                    break;
+                }
+                else if (enter == "-pf")
+                {
+                    _doublyLinkedList.PrintForward();
+                }
+                else if (enter == "-pb")
+                {
+                    _doublyLinkedList.PrintBackward();
+                }
+                else if (enter.StartsWith("-l"))
+                {
+                    enter = enter.Substring(2);
+                    if (int.TryParse(enter, out int res)) {
+                        _doublyLinkedList.AddLast(res);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not a number! Try again!");
+                    }
+                }
+                else
+                {
+                    if (int.TryParse(enter, out int res)) {
+                        _doublyLinkedList.AddFirst(res);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not a number! Try again!");
+                    }
+                }
+            }
         }
 
-
+        public LinkedListTask()
+        {
+            _doublyLinkedList = new DoublyLinkedList<int>();
+        }
     }
 
     public static void EnterRate(string name, string rate, Dictionary<string, float> dictionary)
@@ -176,38 +218,55 @@ class Program
 
     static void Main(string[] args)
     {
-        
+
         string enter = "";
-        while (enter != "-exit")
+        while (enter != "-e")
         {
-            Console.WriteLine("choose task. enter 1, 2 or 3. For exit enter -exit");
+            Console.WriteLine("choose task. enter 1, 2 or 3");
             enter = Console.ReadLine();
-            int taskNumber = int.Parse(enter);
-            if (taskNumber == 1)
+            if(int.TryParse(enter, out int taskNumber))
             {
-                //int[] arrInt = [1, 2, 3];
-                //var listTask = new ListTask(arrInt);
-                var listTask = new ListTask();
-                listTask.TaskLoop();
-            }
-            else if (taskNumber == 2)
-            {
-                //var initDict = new Dictionary<string, float>() { { "Paul", 3.1f }, { "Daria", 4.2f } };
-                //var dictionaryTask = new DictionaryTask(initDict);
-                var dictionaryTask = new DictionaryTask();
-                dictionaryTask.TaskLoop();
-            }
-            else if (taskNumber == 3)
-            {
-                var linkedListTask = new LinkedListTask();
-                linkedListTask.TaskLoop();
+                switch(taskNumber)
+                {
+                    case 1:
+                        //int[] arrInt = [1, 2, 3];
+                        //var listTask = new ListTask(arrInt);
+                        var listTask = new ListTask();
+                        listTask.TaskLoop();
+                        break;
+                    case 2:
+                        var initDict = new Dictionary<string, float>() { { "Sam", 3.1f }, { "Daria", 4.2f } };
+                        var dictionaryTask = new DictionaryTask(initDict);
+                        dictionaryTask.TaskLoop();
+                        break;
+                    case 3:
+                        var linkedListTask = new LinkedListTask();
+                        linkedListTask.TaskLoop();
+                        break;
+                    default:
+                        Console.WriteLine("Incorrect enter. Try again!");
+                        break;
+                }
             }
             else
             {
                 Console.WriteLine("Incorrect enter. Try again!");
             }
         }
-        
+
+
+        //var doublyList = new DoublyLinkedList<string>();
+        //doublyList.AddLast("aaa");
+        //doublyList.AddLast("aaa");
+        //doublyList.AddFirst("ccc");
+        //doublyList.AddFirst("aaa");
+        //doublyList.AddLast("bbb");
+        //doublyList.PrintForward();
+        //doublyList.Remove(doublyList.Find("aaa"));
+        //doublyList.PrintBackward();
+
+
+
 
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey();
