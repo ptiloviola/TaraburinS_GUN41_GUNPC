@@ -1,4 +1,5 @@
 ﻿using GamePrototype.Items.EconomicItems;
+using GamePrototype.Items.EquipItems;
 
 namespace GamePrototype.Units
 {
@@ -70,5 +71,10 @@ namespace GamePrototype.Units
                 }
             }
         }
+
+        // test
+
+        public abstract void CheckEquipment();
+
     }
 }

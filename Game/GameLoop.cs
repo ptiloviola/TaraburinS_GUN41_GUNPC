@@ -3,6 +3,7 @@ using GamePrototype.Dungeon;
 using GamePrototype.Units;
 using GamePrototype.Utils;
 
+
 namespace GamePrototype.Game
 {
     public sealed class GameLoop
@@ -27,6 +28,10 @@ namespace GamePrototype.Game
             Console.WriteLine("Enter your name");
             _player = UnitFactoryDemo.CreatePlayer(Console.ReadLine());
             Console.WriteLine($"Hello {_player.Name}");
+
+            Player p = (Player)_player;
+
+            Console.WriteLine($"player has {p.GetEquipedArmour().Name} with durability = {p.GetEquipedArmour().Durability}");
         }
 
         private void StartGameLoop()

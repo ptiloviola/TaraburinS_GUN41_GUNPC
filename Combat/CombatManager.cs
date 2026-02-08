@@ -16,6 +16,9 @@ namespace GamePrototype.Combat
                 if (Enum.TryParse<RockPaperScissors>(Console.ReadLine(), out var rockPaperScissors)) 
                 {
                     HandleCombatInput(player, enemy, rockPaperScissors);
+                    // test
+                    //ApplyReduceDurability(player);
+                    player.CheckEquipment();
                 }
                 else
                 {
@@ -57,12 +60,15 @@ namespace GamePrototype.Combat
                 // enemy hit
                 case RockPaperScissors.Scissors when enemyInput == RockPaperScissors.Rock:
                     ApplyDamage(enemy, player);
+                    ApplyReduceDurability((Player) player);
                     break;
                 case RockPaperScissors.Paper when enemyInput == RockPaperScissors.Scissors:
                     ApplyDamage(enemy, player);
+                    ApplyReduceDurability((Player) player);
                     break;
                 case RockPaperScissors.Rock when enemyInput == RockPaperScissors.Paper:
                     ApplyDamage(enemy, player);
+                    ApplyReduceDurability((Player) player);
                     break;
                 default:
                     Console.WriteLine("Combatants tried to hit, but missed :(");
@@ -79,5 +85,19 @@ namespace GamePrototype.Combat
                 Console.WriteLine($"{defender.Name} is dead!");
             }
         }
+
+
+        //task #1
+        public void ApplyReduceDurability(Player player)
+        {
+            var armour = player.GetEquipedArmour();
+            if (armour != null)
+            {
+                armour.ReduceDurability(1);
+                Console.WriteLine($"reduced durability 1 point for {armour.Name}. remaining durability = {armour.Durability}");
+            }
+
+        }
+
     }
 }

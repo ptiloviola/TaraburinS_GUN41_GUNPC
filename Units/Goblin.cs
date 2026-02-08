@@ -1,4 +1,5 @@
-﻿namespace GamePrototype.Units
+﻿
+namespace GamePrototype.Units
 {
     public sealed class Goblin : Unit
     {
@@ -11,5 +12,8 @@
         public override void HandleCombatComplete() => Health = MaxHealth;
 
         protected override uint CalculateAppliedDamage(uint damage) => damage;
+
+        //test
+        public override void CheckEquipment() { }
     }
 }

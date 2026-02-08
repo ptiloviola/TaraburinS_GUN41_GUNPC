@@ -51,6 +51,13 @@ namespace GamePrototype.Units
             {
                 Health += healthPotion.HealthRestore;
             }
+            //task #1
+            if (economicItem is Grindstone grindstone)
+            {
+                Armour armour = GetEquipedArmour();
+                armour.Repair(5);
+                Console.WriteLine($"{armour.Name} repair 5 points. durability = {armour.Durability}");
+            }
         }
 
         protected override uint CalculateAppliedDamage(uint damage)
@@ -61,6 +68,30 @@ namespace GamePrototype.Units
             }
             return damage;
         }
+
+        // test
+
+        public override void CheckEquipment()
+        {
+            foreach (var kvp in _equipment)
+            {
+                Console.WriteLine($"key = {kvp.Key} and value = {kvp.Value.Name}");
+            }
+        }
+
+        // task #1
+
+        public Armour GetEquipedArmour()
+        {
+            if (_equipment.TryGetValue(EquipSlot.Armour, out var item) && item is Armour armour)
+            {
+                return armour;
+            }
+            return null;
+        }
+
+
+
 
         public override string ToString()
         {
