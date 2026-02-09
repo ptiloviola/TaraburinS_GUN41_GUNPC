@@ -3,6 +3,9 @@
     public enum EquipSlot
     {
         Weapon,
-        Armour
+        Armour,
+        //task #2
+        RangeWeapon,
+        Helmet,
     }
 }

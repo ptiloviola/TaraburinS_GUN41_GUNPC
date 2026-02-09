@@ -14,14 +14,15 @@ namespace GamePrototype.Utils
             var lootRoom = new DungeonRoom("Loot1", new Gold());
             var lootStoneRoom = new DungeonRoom("Loot1", new Grindstone("Stone"));
             // test
-            var lootEquip = new DungeonRoom("Loot2", new Armour(3, 3, "Helmet"));
+            //var lootEquip = new DungeonRoom("Loot2", new Armour(3, 3, "Old shirt"));
+            var lootEquip = new DungeonRoom("Loot2", new Helmet(7, 5, "Old Helmet"));
             var monsterRoom2 = new DungeonRoom("Monster", UnitFactoryDemo.CreateGoblinEnemy());
 
             var finalRoom = new DungeonRoom("Final", new Grindstone("Stone1"));
 
             enter.TrySetDirection(Direction.Right, monsterRoom);
             // test
-            enter.TrySetDirection(Direction.Left, emptyRoom);
+            enter.TrySetDirection(Direction.Left, lootEquip);
 
             //lootEquip.TrySetDirection(Direction.Forward, lootRoom);
             //lootEquip.TrySetDirection(Direction.Left, monsterRoom2);
@@ -29,9 +30,9 @@ namespace GamePrototype.Utils
             monsterRoom.TrySetDirection(Direction.Forward, lootRoom);
             monsterRoom.TrySetDirection(Direction.Left, lootStoneRoom);
 
-            emptyRoom.TrySetDirection(Direction.Forward, lootStoneRoom);
+            lootEquip.TrySetDirection(Direction.Forward, lootStoneRoom);
 
-            lootRoom.TrySetDirection(Direction.Forward, finalRoom);
+            lootRoom.TrySetDirection(Direction.Forward, monsterRoom2);
 
             lootStoneRoom.TrySetDirection(Direction.Forward, monsterRoom2);
 

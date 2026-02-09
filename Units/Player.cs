@@ -37,11 +37,40 @@ namespace GamePrototype.Units
 
         public override void AddItemToInventory(Item item)
         {
-            if (item is EquipItem equipItem && _equipment.TryAdd(equipItem.Slot, equipItem)) 
+            // task #2
+            CheckEquipment();
+            Console.WriteLine("----------");
+            if (item is EquipItem equipItem)
             {
-                // Item was equipped
-                return;
+                if (_equipment.TryAdd(equipItem.Slot, equipItem))
+                {
+                    // Item was equipped
+                    CheckEquipment();
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine($"You found {equipItem.Name}. Equipment slot {equipItem.Slot} is already taken. Replace the equipment? press 'y' for yes, any key for no");
+                    if (Console.ReadLine() == "y")
+                    {
+                        var oldItem = _equipment[equipItem.Slot];
+                        _equipment[equipItem.Slot] = equipItem;
+                        // Item was replaced
+                        CheckEquipment();
+                        Console.WriteLine($"Equipment {oldItem.Name} was replaced to {equipItem.Name}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The equipment {_equipment[equipItem.Slot].Name} remains the same. The loot is dropped.");
+                        CheckEquipment();
+                        return;
+                    }
+                    return;
+                }
+                
             }
+            Console.WriteLine("Here");
+            CheckEquipment();
             base.AddItemToInventory(item);
         }
 
@@ -50,6 +79,12 @@ namespace GamePrototype.Units
             if (economicItem is HealthPotion healthPotion) 
             {
                 Health += healthPotion.HealthRestore;
+                //task #1
+                if (Health > MaxHealth)
+                {
+                    Health = MaxHealth;
+                }
+                Console.WriteLine($"{Name} used HealthPotion. Currently healt  = {Health}");
             }
             //task #1
             if (economicItem is Grindstone grindstone)
@@ -62,11 +97,18 @@ namespace GamePrototype.Units
 
         protected override uint CalculateAppliedDamage(uint damage)
         {
-            if (_equipment.TryGetValue(EquipSlot.Armour, out var item) && item is Armour armour) 
+            //task #2
+            var totalDefence = 0f;
+            if (_equipment.TryGetValue(EquipSlot.Armour, out var itemArmour) && itemArmour is Armour armour) 
             {
-                damage -= (uint)(damage * (armour.Defence / 100f));
+                totalDefence += armour.Defence;
             }
-            return damage;
+            if (_equipment.TryGetValue(EquipSlot.Helmet, out var itemHelmet) && itemHelmet is Helmet helmet)
+            {
+                totalDefence += helmet.Defence;
+            }
+            Console.WriteLine($"total defence = {totalDefence}");
+            return damage -= (uint)(damage * (totalDefence / 100f));
         }
 
         // test
