@@ -29,6 +29,7 @@ namespace GamePrototype.Items.EquipItems
             }
             else
             {
+                _durability = 0;
                 Console.WriteLine($"EquipItem {Name} is broken");
             }
             

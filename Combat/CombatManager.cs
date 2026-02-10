@@ -43,7 +43,7 @@ namespace GamePrototype.Combat
 
         private void HandleCombatInput(Unit player, Unit enemy, RockPaperScissors rockPaperScissors)
         {
-            var enemyInput = (RockPaperScissors) _random.Next(1, 3);
+            var enemyInput = (RockPaperScissors) _random.Next(1, 4);
             Console.WriteLine($"Result player = {rockPaperScissors} and enemy = {enemyInput}");
             switch (rockPaperScissors) 
             {
@@ -88,15 +88,29 @@ namespace GamePrototype.Combat
 
 
         //task #1
+        //public void ApplyReduceDurability(Player player)
+        //{
+        //    var armour = player.GetEquipedArmour();
+        //    if (armour != null)
+        //    {
+        //        armour.ReduceDurability(1);
+        //        Console.WriteLine($"reduced durability 1 point for {armour.Name}. remaining durability = {armour.Durability}");
+        //    }
+
+        //}
+
         public void ApplyReduceDurability(Player player)
         {
-            var armour = player.GetEquipedArmour();
-            if (armour != null)
+            foreach (var defenceEquip in player.GetDefenceEquip())
             {
-                armour.ReduceDurability(1);
-                Console.WriteLine($"reduced durability 1 point for {armour.Name}. remaining durability = {armour.Durability}");
-            }
+                defenceEquip.ReduceDurability(1);
+                Console.WriteLine($"reduced durability 1 point for {defenceEquip.Name}. remaining durability = {defenceEquip.Durability}");
+                if (defenceEquip.Durability == 0)
+                {
+                    player.RemoveItemFromEquip(defenceEquip);
+                }
 
+            }
         }
 
     }

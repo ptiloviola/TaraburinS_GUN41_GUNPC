@@ -31,7 +31,7 @@ namespace GamePrototype.Game
 
             Player p = (Player)_player;
 
-            Console.WriteLine($"player has {p.GetEquipedArmour().Name} with durability = {p.GetEquipedArmour().Durability}");
+            //Console.WriteLine($"player has {p.GetEquipedArmour().Name} with durability = {p.GetEquipedArmour().Durability}");
         }
 
         private void StartGameLoop()

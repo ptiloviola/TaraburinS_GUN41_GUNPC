@@ -84,14 +84,17 @@ namespace GamePrototype.Units
                 {
                     Health = MaxHealth;
                 }
-                Console.WriteLine($"{Name} used HealthPotion. Currently healt  = {Health}");
+                Console.WriteLine($"{Name} used HealthPotion. Currently health  = {Health}");
             }
             //task #1
             if (economicItem is Grindstone grindstone)
             {
-                Armour armour = GetEquipedArmour();
-                armour.Repair(5);
-                Console.WriteLine($"{armour.Name} repair 5 points. durability = {armour.Durability}");
+                //Armour armour = GetEquipedArmour();
+                foreach (var equipItem in GetDefenceEquip())
+                {
+                    equipItem.Repair(5);
+                    Console.WriteLine($"{equipItem.Name} repair 5 points. durability = {equipItem.Durability}");
+                }
             }
         }
 
@@ -99,14 +102,20 @@ namespace GamePrototype.Units
         {
             //task #2
             var totalDefence = 0f;
-            if (_equipment.TryGetValue(EquipSlot.Armour, out var itemArmour) && itemArmour is Armour armour) 
+            //if (_equipment.TryGetValue(EquipSlot.Armour, out var itemArmour) && itemArmour is Armour armour) 
+            //{
+            //    totalDefence += armour.Defence;
+            //}
+            //if (_equipment.TryGetValue(EquipSlot.Helmet, out var itemHelmet) && itemHelmet is Helmet helmet)
+            //{
+            //    totalDefence += helmet.Defence;
+            //}
+
+            foreach (var item in GetDefenceEquip())
             {
-                totalDefence += armour.Defence;
+                totalDefence += ((IDefence)item).Defence;
             }
-            if (_equipment.TryGetValue(EquipSlot.Helmet, out var itemHelmet) && itemHelmet is Helmet helmet)
-            {
-                totalDefence += helmet.Defence;
-            }
+
             Console.WriteLine($"total defence = {totalDefence}");
             return damage -= (uint)(damage * (totalDefence / 100f));
         }
@@ -117,19 +126,42 @@ namespace GamePrototype.Units
         {
             foreach (var kvp in _equipment)
             {
-                Console.WriteLine($"key = {kvp.Key} and value = {kvp.Value.Name}");
+                Console.WriteLine($" {kvp.Key} = {kvp.Value.Name}");
             }
         }
 
+
+
         // task #1
 
-        public Armour GetEquipedArmour()
+        //public Armour GetEquipedArmour()
+        //{
+        //    if (_equipment.TryGetValue(EquipSlot.Armour, out var item) && item is Armour armour)
+        //    {
+        //        return armour;
+        //    }
+        //    return null;
+        //}
+
+
+        public IEnumerable<EquipItem> GetDefenceEquip()
         {
-            if (_equipment.TryGetValue(EquipSlot.Armour, out var item) && item is Armour armour)
+            foreach (var item in _equipment.Values)
             {
-                return armour;
+                if (item is IDefence)
+                {
+                    yield return item;
+                }
             }
-            return null;
+        }
+
+        public void RemoveItemFromEquip(EquipItem equipItem)
+        {
+            if (_equipment.TryGetValue(equipItem.Slot, out var current))
+            {
+                _equipment.Remove(equipItem.Slot);
+                Console.WriteLine($"equip item {equipItem.Name} removed from equipment");
+            }
         }
 
 

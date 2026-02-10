@@ -2,7 +2,7 @@
 
 namespace GamePrototype.Items.EquipItems
 {
-    public sealed class Helmet : EquipItem
+    public sealed class Helmet : EquipItem, IDefence
     {
         public Helmet(uint defence, uint durability, string name) : base(durability, name) => Defence = defence;
 
