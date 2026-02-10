@@ -16,9 +16,6 @@ namespace GamePrototype.Combat
                 if (Enum.TryParse<RockPaperScissors>(Console.ReadLine(), out var rockPaperScissors)) 
                 {
                     HandleCombatInput(player, enemy, rockPaperScissors);
-                    // test
-                    //ApplyReduceDurability(player);
-                    player.CheckEquipment();
                 }
                 else
                 {

@@ -84,6 +84,7 @@ namespace GamePrototype.Game
                     //task #3
                     if (Enum.TryParse<Direction>(Console.ReadLine(), out var direction) ) 
                     {
+                        _player.CheckEquipment();
                         if (currentRoom.Rooms.TryGetValue(direction, out var nextRoom))
                         {
                             currentRoom = nextRoom;

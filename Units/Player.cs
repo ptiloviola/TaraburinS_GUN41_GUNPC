@@ -38,14 +38,13 @@ namespace GamePrototype.Units
         public override void AddItemToInventory(Item item)
         {
             // task #2
-            CheckEquipment();
-            Console.WriteLine("----------");
+            //CheckEquipment();
+            //Console.WriteLine("----------");
             if (item is EquipItem equipItem)
             {
                 if (_equipment.TryAdd(equipItem.Slot, equipItem))
                 {
                     // Item was equipped
-                    CheckEquipment();
                     return;
                 }
                 else
@@ -56,21 +55,16 @@ namespace GamePrototype.Units
                         var oldItem = _equipment[equipItem.Slot];
                         _equipment[equipItem.Slot] = equipItem;
                         // Item was replaced
-                        CheckEquipment();
                         Console.WriteLine($"Equipment {oldItem.Name} was replaced to {equipItem.Name}");
                     }
                     else
                     {
                         Console.WriteLine($"The equipment {_equipment[equipItem.Slot].Name} remains the same. The loot is dropped.");
-                        CheckEquipment();
                         return;
                     }
                     return;
                 }
-                
             }
-            Console.WriteLine("Here");
-            CheckEquipment();
             base.AddItemToInventory(item);
         }
 
