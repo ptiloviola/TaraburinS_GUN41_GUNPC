@@ -11,6 +11,7 @@ namespace GamePrototype.Utils
             var player = new Player(name, 30, 30, 6);
             player.AddItemToInventory(new Weapon(9, 14, "Sword"));
             player.AddItemToInventory(new Armour(9, 14, "Light Armour"));
+            player.AddItemToInventory(new Grindstone("Grindstone"));
             return player;
         }
 
