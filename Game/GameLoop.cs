@@ -24,15 +24,47 @@ namespace GamePrototype.Game
         private void Initialize()
         {
             Console.WriteLine("Welcome, player!");
-            _dungeon = DungeonBuilder.BuildDungeon();
+
+            //task#3
+
             Console.WriteLine("Enter your name");
-            _player = UnitFactoryDemo.CreatePlayer(Console.ReadLine());
-            Console.WriteLine($"Hello {_player.Name}");
+            var playerName = Console.ReadLine();
 
-            Player p = (Player)_player;
+            Console.WriteLine(GetDifficultyModeString());
+            
+            while (_dungeon == null || _player == null)
+            {
+                if (Enum.TryParse<Difficulty>(Console.ReadLine(), out var difficulty))
+                {
+                    if (difficulty == Difficulty.Easy)
+                    {
+                        InitializeDifficultyMode(new UnitFactoryEasy().CreatePlayer(playerName), new DungeonBuilderEasy().BuildDungeon());
+                        break;
+                    }
+                    else if (difficulty == Difficulty.Hard)
+                    {
+                        InitializeDifficultyMode(new UnitFactoryHard().CreatePlayer(playerName), new DungeonBuilderHard().BuildDungeon());
+                        break;
+                    }
+                }
+                Console.WriteLine(GetDifficultyModeString());
+            }
+            
 
-            //Console.WriteLine($"player has {p.GetEquipedArmour().Name} with durability = {p.GetEquipedArmour().Durability}");
         }
+
+        private string GetDifficultyModeString() => $"Select difficulty mode. Type: {Difficulty.Easy} = {(int)Difficulty.Easy} or {Difficulty.Hard} = {(int)Difficulty.Hard}";
+
+        private void InitializeDifficultyMode(Unit player, DungeonRoom dungeon)
+        {
+            _dungeon = dungeon;
+            _player = player;
+            Console.WriteLine($"Hello {_player.Name}");
+            Player p = (Player)_player;
+        }
+        
+
+
 
         private void StartGameLoop()
         {
@@ -49,15 +81,24 @@ namespace GamePrototype.Game
                 DisplayRouteOptions(currentRoom);
                 while (true) 
                 {
+                    //task #3
                     if (Enum.TryParse<Direction>(Console.ReadLine(), out var direction) ) 
                     {
-                        currentRoom = currentRoom.Rooms[direction];
-                        break;
+                        if (currentRoom.Rooms.TryGetValue(direction, out var nextRoom))
+                        {
+                            currentRoom = nextRoom;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("You can't go this way!");
+                        }
                     }
                     else 
                     {
                         Console.WriteLine("Wrong direction!");
                     }
+                    DisplayRouteOptions(currentRoom);
                 }
             }
             Console.WriteLine($"Congratulations, {_player.Name}");
