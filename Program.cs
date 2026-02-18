@@ -1,15 +1,18 @@
-﻿using GamePrototype.Game;
+﻿
 
-namespace GamePrototype
+namespace SocialCasino
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            new GameLoop().StartGame();
+            var x = "xxx";
+            Console.WriteLine(x);
+
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
+
     }
 }
 
