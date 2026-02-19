@@ -59,11 +59,11 @@
 
             foreach (char invalidChar in Path.GetInvalidFileNameChars())
             {
-                if (fileName.Contains(invalidChar))
-                {
-                    throw new ArgumentException($"File name cannot contain invalid character: {invalidChar}", nameof(fileName));
-                }
-                //id = id.Replace(c, '_');
+                //if (fileName.Contains(invalidChar))
+                //{
+                //    throw new ArgumentException($"File name cannot contain invalid character: {invalidChar}", nameof(fileName));
+                //}
+                fileName = fileName.Replace(invalidChar, '_');
             }
 
             fileName = Path.GetFileName(fileName);
