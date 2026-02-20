@@ -10,6 +10,11 @@ namespace SocialCasino.GameItems.Cards
             Suit = cardSuit;
             Value = cardValue;  
         }
+
+        public override string ToString()
+        {
+            return $"Card {Suit} : {Value}";
+        }
     }
 }
 

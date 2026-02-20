@@ -1,5 +1,6 @@
 ﻿using SocialCasino.SaveLoadService;
 using SocialCasino.GameItems;
+using SocialCasino.CasinoGame;
 
 namespace SocialCasino
 {
@@ -40,6 +41,23 @@ namespace SocialCasino
             Console.WriteLine("You rolled a " + dice.Number);
 
 
+            var bj = new Blackjack();
+
+            Console.WriteLine(bj);
+
+            bj.PlayGame();
+
+            //foreach (var card in bj.GetCardList())
+            //{
+            //    Console.WriteLine(card.ToString());
+            //}
+
+            //Console.WriteLine("=======================");
+
+            //foreach (var card in bj.GetCardQueue())
+            //{
+            //    Console.WriteLine(card.ToString());
+            //}
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
