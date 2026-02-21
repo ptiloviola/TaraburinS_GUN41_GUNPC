@@ -36,20 +36,23 @@ namespace SocialCasino
 
             Console.WriteLine("Saved in: " + savesDir);
 
-            var dice = new Dice(1, 20);
+            //var dice = new Dice(1, 20);
 
-            Console.WriteLine("Rolling the dice...");
-            Console.WriteLine("You rolled a " + dice.Number);
-            Console.WriteLine("You rolled a " + dice.Number);
-            Console.WriteLine("You rolled a " + dice.Number);
-            Console.WriteLine("You rolled a " + dice.Number);
+            //Console.WriteLine("Rolling the dice...");
+            //Console.WriteLine("You rolled a " + dice.Number);
+            //Console.WriteLine("You rolled a " + dice.Number);
+            //Console.WriteLine("You rolled a " + dice.Number);
+            //Console.WriteLine("You rolled a " + dice.Number);
 
 
-            var bj = new Blackjack();
+            //var bj = new Blackjack();
 
-            Console.WriteLine(bj);
+            //Console.WriteLine(bj);
 
-            bj.PlayGame();
+            //bj.PlayGame();
+
+            var diceGame = new DiceGame(3, 1, 6);
+            diceGame.PlayGame();
 
             //foreach (var card in bj.GetCardList())
             //{
