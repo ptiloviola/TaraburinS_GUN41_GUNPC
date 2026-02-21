@@ -112,7 +112,7 @@ namespace SocialCasino.CasinoGame
             int aces = 0;
             foreach (var card in hand)
             {
-                total += (int)card.Value;
+                total += GetBlackjackPoints(card.Value);
                 if (card.Value == CardValue.Ace)
                 {
                     aces++;
@@ -127,7 +127,15 @@ namespace SocialCasino.CasinoGame
             return total;
         }
 
-
+        private static int GetBlackjackPoints(CardValue value)
+        {
+            return value switch
+            {
+                CardValue.Jack or CardValue.Queen or CardValue.King => 10,
+                CardValue.Ace => 11,
+                _ => (int)value // Six..Ten = 6..10
+            };
+        }
 
         public Queue<Card> GetCardQueue()
         {

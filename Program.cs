@@ -1,6 +1,7 @@
 ﻿using SocialCasino.SaveLoadService;
 using SocialCasino.GameItems;
 using SocialCasino.CasinoGame;
+using System.Text;
 
 namespace SocialCasino
 {
@@ -8,6 +9,9 @@ namespace SocialCasino
     {
         static void Main(string[] args)
         {
+
+            Console.OutputEncoding = Encoding.UTF8;
+
             //var x = "xxx";
             //Console.WriteLine(x);
 
