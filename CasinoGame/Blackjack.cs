@@ -19,6 +19,10 @@ namespace SocialCasino.CasinoGame
 
         public override void PlayGame()
         {
+            _playerHand.Clear();
+            _compHand.Clear();
+            _deck.Clear();
+            _cardList.Clear();
             Console.WriteLine("Starting game...");
             FactoryMethod();
             Shuffle();

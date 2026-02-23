@@ -25,16 +25,16 @@ namespace SocialCasino
             //Console.WriteLine(saveLoadService.LoadData());
 
 
-            var savesDir = Path.Combine(AppContext.BaseDirectory, "Saves");
-            Console.WriteLine("Saves directory: " + savesDir);
-            var saveLoad = new FileSystemSaveLoadService(savesDir);
+            //var savesDir = Path.Combine(AppContext.BaseDirectory, "Saves");
+            //Console.WriteLine("Saves directory: " + savesDir);
+            //var saveLoad = new FileSystemSaveLoadService(savesDir);
 
-            saveLoad.SaveData("HP=12;Gold=420", "slot2.doc");
+            //saveLoad.SaveData("HP=12;Gold=420", "slot2.doc");
 
-            string loaded = saveLoad.LoadData("slot2.doc");
-            Console.WriteLine(loaded);
+            //string loaded = saveLoad.LoadData("slot2.doc");
+            //Console.WriteLine(loaded);
 
-            Console.WriteLine("Saved in: " + savesDir);
+            //Console.WriteLine("Saved in: " + savesDir);
 
             //var dice = new Dice(1, 20);
 
@@ -51,8 +51,8 @@ namespace SocialCasino
 
             //bj.PlayGame();
 
-            var diceGame = new DiceGame(3, 1, 6);
-            diceGame.PlayGame();
+            //var diceGame = new DiceGame(3, 1, 6);
+            //diceGame.PlayGame();
 
             //foreach (var card in bj.GetCardList())
             //{
@@ -65,6 +65,19 @@ namespace SocialCasino
             //{
             //    Console.WriteLine(card.ToString());
             //}
+
+            var savesDir = Path.Combine(AppContext.BaseDirectory, "Saves");
+            Console.WriteLine("Saves directory: " + savesDir);
+            var saveLoad = new FileSystemSaveLoadService(savesDir);
+            var blackjack = new Blackjack();
+            var diceGame = new DiceGame(3, 1, 6);
+
+
+
+            var casino = new Casino(saveLoad, blackjack, diceGame);
+            casino.StartGame();
+
+
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
