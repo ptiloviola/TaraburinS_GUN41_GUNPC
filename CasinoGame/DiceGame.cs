@@ -1,6 +1,8 @@
 ﻿using SocialCasino.CasinoGame;
 using SocialCasino.GameItems;
 
+using System.Threading;
+
 namespace SocialCasino.CasinoGame
 {
     public class DiceGame : CasinoGameBase
@@ -32,6 +34,7 @@ namespace SocialCasino.CasinoGame
 
         public override void PlayGame()
         {
+            ClearDiceLists();
             Console.WriteLine("Starting game...");
             FactoryMethod();
             int playerTotal = 0;
@@ -75,6 +78,7 @@ namespace SocialCasino.CasinoGame
                     Console.WriteLine(number);
                 }
                 total += number;
+                Thread.Sleep(1000);
             }
             return total;
         }
@@ -91,6 +95,11 @@ namespace SocialCasino.CasinoGame
                 6 => "⚅",
                 _ => value.ToString()
             };
+        }
+        private void ClearDiceLists()
+        {
+            _diceListPlayer.Clear();
+            _diceListComp.Clear();
         }
     }
 

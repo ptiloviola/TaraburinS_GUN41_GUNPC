@@ -2,6 +2,8 @@
 using SocialCasino.GameItems;
 using SocialCasino.GameItems.Cards;
 
+using System.Threading;
+
 namespace SocialCasino.CasinoGame
 {
     public class Blackjack : CasinoGameBase
@@ -19,11 +21,10 @@ namespace SocialCasino.CasinoGame
 
         public override void PlayGame()
         {
-            _playerHand.Clear();
-            _compHand.Clear();
-            _deck.Clear();
-            _cardList.Clear();
+            ClearCards();
+
             Console.WriteLine("Starting game...");
+
             FactoryMethod();
             Shuffle();
 
@@ -82,6 +83,14 @@ namespace SocialCasino.CasinoGame
             }
         }
 
+        private void ClearCards()
+        {
+            _playerHand.Clear();
+            _compHand.Clear();
+            _deck.Clear();
+            _cardList.Clear();
+        }
+
         private void Shuffle()
         {
             Console.WriteLine("Deck creation...");
@@ -107,6 +116,7 @@ namespace SocialCasino.CasinoGame
                 }
                 hand.Add(card);
                 Console.WriteLine($"The {player} receives the following card: {card}");
+                Thread.Sleep(1000);
             }
         }
 

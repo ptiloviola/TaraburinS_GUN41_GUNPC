@@ -22,16 +22,12 @@ namespace SocialCasino.CasinoGame
         public Casino(ISaveLoadService<string> saveLoadService, Blackjack blackjack, DiceGame diceGame)
         {
             _saveLoadService = saveLoadService ?? throw new ArgumentNullException(nameof(saveLoadService));
-            //if (string.IsNullOrWhiteSpace(saveFileName))
-            //{
-            //    throw new ArgumentException("Save file name cannot be null or whitespace.", nameof(saveFileName));
-            //}
-            //_saveFileName = saveFileName;
+
             _blackjack = blackjack;
             _diceGame = diceGame;
+
             SubscribeToGameEvents(_blackjack);
             SubscribeToGameEvents(_diceGame);
-
         }
 
         private PlayerProfile LoadOrCreateProfile()
@@ -62,6 +58,7 @@ namespace SocialCasino.CasinoGame
         private void SaveProfile()
         {
             _saveLoadService.SaveData(_playerProfile.Serialize(), _saveFileName);
+            Console.WriteLine("Profile was saved");
         }
 
         private int MakeBet()
@@ -182,14 +179,8 @@ namespace SocialCasino.CasinoGame
                 _currentBet = MakeBet();
                 Console.WriteLine($"Computer bet is the same: {_currentBet}");
 
-
                 selectedGame.PlayGame();
-
-
-
             }
-
-
         }
     }
 }
